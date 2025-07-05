@@ -1,0 +1,69 @@
+// Este es el archivo de esquema de Prisma para MedScanAI.
+// Define la estructura de la base de datos para soportar las funcionalidades de la plataforma.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql" // Puedes cambiar a "mysql", "sqlite", etc., según tu base de datos
+  url      = env("DATABASE_URL")
+}
+
+// Enumeración para los roles de usuario dentro de la plataforma MedScanAI
+enum UserRole {
+  TECHNICIAN    // Técnico que sube las imágenes
+  DOCTOR        // Médico que valida los diagnósticos
+  ADMINISTRATOR // Administrador del sistema
+  PATIENT_USER  // Usuario que es paciente y/o gestiona otros pacientes
+}
+
+// Enumeración para las modalidades de imágenes médicas soportadas
+enum ImageModality {
+  X_RAY       // Radiografía
+  ULTRASOUND  // Ecografía
+  MAMMOGRAM   // Mamografía
+  CT          // Tomografía Computarizada (para futuras expansiones)
+  MRI         // Resonancia Magnética (para futuras expansiones)
+  OTHER       // Otras modalidades no especificadas
+}
+
+// Enumeración para el estado del procesamiento de una imagen
+enum ImageStatus {
+  UPLOADED        // Imagen subida, pendiente de análisis
+  ANALYZING       // Imagen en proceso de análisis por IA
+  ANALYZED        // Análisis por IA completado
+  REPORT_PENDING  // Análisis completado, pendiente de reporte/validación
+  REPORTED        // Reporte final generado y validado
+  REJECTED        // Imagen rechazada (ej. por mala calidad)
+}
+
+// Enumeración para el estado de un reporte diagnóstico
+enum ReportStatus {
+  PRELIMINARY_AI      // Reporte inicial generado por la IA
+  PENDING_VALIDATION  // Reporte pendiente de validación por un médico
+  VALIDATED           // Reporte validado por un médico
+  REJECTED            // Reporte rechazado o requiere revisión adicional
+}
+
+// Nueva enumeración para el tipo de relación de atención del paciente con un centro de salud
+enum PatientCareType {
+  PRIMARY_CARE      // Atención habitual o primaria
+  EXAM_CENTER       // Centro para toma de exámenes (ej. radiografías)
+  SPECIALIST_VISIT  // Visita a un especialista en ese centro
+  EMERGENCY         // Atención de emergencia
+  OTHER             // Otro tipo de atención
+}
+
+// Modelo para los usuarios de la plataforma (técnicos, médicos, administradores, pacientes-usuarios)
+model User {
+  id             String        @id @default(uuid()) // ID único del usuario
+  email          String        @unique               // Correo electrónico único para inicio de sesión
+  passwordHash   String                              // Hash de la contraseña del usuario
+  name           String                              // Nombre completo del usuario
+  role           UserRole                            // Rol del usuario (definido por el enum UserRole)
+  createdAt      DateTime      @default(now())       // Fecha y hora de creación del registro
+  updatedAt      DateTime      @updatedAt            // Fecha y hora de la última actualización del registro
+
+}
+
