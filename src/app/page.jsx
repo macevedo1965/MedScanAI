@@ -6,7 +6,7 @@ export default function Home() {
     <div className="flex w-full h-[calc(100vh-128px)] items-center justify-center bg-blue-200">
       <Link
         href="/dashboard"
-        className="cursor-pointer transition-all duration-200"
+        className="cursor-pointer transition-all duration-200 w-full max-w-md"
       >
         <div className="flex flex-col items-center justify-center">
           <Image

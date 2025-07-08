@@ -10,7 +10,7 @@ import {
 const Dashboard = () => {
   return (
     <div className="flex w-full h-[calc(100vh-128px)] bg-blue-100/50 items-center justify-center">
-      <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-4 p-4">
+      <div className="max-w-md grid grid-cols-2 grid-rows-2 w-full h-full gap-4 p-4">
         <div className="bg-white rounded-lg shadow-md">
           <div className="flex flex-col w-full h-full items-center justify-center gap-3">
             <FileSpreadsheet

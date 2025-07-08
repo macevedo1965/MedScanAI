@@ -31,8 +31,12 @@ const uploaderFilesPage = () => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: { "image/*": [] },
-    maxSize: 1024 * 50,
+    accept: {
+      "image/*": [],
+      "video/mp4": [".mp4", ".MP4"],
+      "application/pdf": [".pdf"],
+    },
+    maxSize: 1024 * 1024 * 20,
   });
 
   const removeFile = (name) => {
@@ -72,7 +76,7 @@ const uploaderFilesPage = () => {
       className="flex flex-col items-center justify-start mx-auto w-full h-[calc(100vh-128px)] bg-blue-200 p-6 cursor-pointer overflow-x-hidden overflow-y-auto "
       onSubmit={handleSubmit}
     >
-      <div className="w-full sm:w-4/5 md-2/5">
+      <div className="w-full max-w-md sm:w-4/5 md-2/5">
         <div
           {...getRootProps({
             className:
@@ -123,13 +127,30 @@ const uploaderFilesPage = () => {
                   Accepted Files
                 </h3>
                 <div className="flex items-center w-full h-48 mt-2 gap-2 p-0 overflow-hidden overflow-x-auto">
-                  {files.map((file, index) => (
-                    <ImagePreview
-                      key={index}
-                      file={file}
-                      onRemoveFile={removeFile}
-                    />
-                  ))}
+                  {files.map((file, index) => {
+                    console.log(file);
+                    file.type === "video/mp4" ? (
+                      <video
+                        src={file.preview}
+                        className="h-18 object-cover rounded-lg border-2"
+                        autoPlay
+                        loop
+                        muted
+                      />
+                    ) : file.type === "video/mp4" ? (
+                      <ImagePreview
+                        key={index}
+                        file={file}
+                        onRemoveFile={removeFile}
+                      />
+                    ) : (
+                      <ImagePreview
+                        key={index}
+                        file={file}
+                        onRemoveFile={removeFile}
+                      />
+                    );
+                  })}
                 </div>
               </div>
             )}
