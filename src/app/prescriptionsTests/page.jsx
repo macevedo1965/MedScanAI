@@ -102,14 +102,14 @@ const PrescriptionsTestsPage = () => {
                     height={72}
                     className="h-18 object-cover rounded-lg"
                   />
+                ) : prescriptionTest.mediaType === "pdf" ? (
+                  <span className="text-xs text-red-500 font-bold">
+                    PDF File Preview
+                  </span>
                 ) : (
-                  <Image
-                    src={prescriptionTest.media}
-                    alt=""
-                    width={100}
-                    height={72}
-                    className="h-18 object-cover rounded-lg"
-                  />
+                  <span className="text-xs text-red-500 font-bold">
+                    No File Preview
+                  </span>
                 )}
               </div>
             </div>

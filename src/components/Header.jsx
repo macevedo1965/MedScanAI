@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import UserMenu from "@/components/UserMenu";
 
 const Header = () => {
   return (
@@ -20,13 +21,10 @@ const Header = () => {
             <span className="text-red-700 font-extrabold">MedScanAI</span>
           </div>
         </Link>
-        <Image
-          src="https://lh3.googleusercontent.com/a/ACg8ocJS5-u3OAG4IcCbMrKVY3XxMbXSnymtPR7WKyFdG-JiVJ-5V9SU=s96-c-rg-br100"
-          alt="User"
-          width={48}
-          height={48}
-          className="w-12 h-12 rounded-full object-cover"
-        />
+
+        <div className="self-end">
+          <UserMenu />
+        </div>
       </div>
     </div>
   );

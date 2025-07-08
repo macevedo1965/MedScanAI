@@ -36,7 +36,7 @@ const uploaderFilesPage = () => {
       "video/mp4": [".mp4", ".MP4"],
       "application/pdf": [".pdf"],
     },
-    maxSize: 1024 * 1024 * 20,
+    maxSize: 1024 * 1024 * 100,
   });
 
   const removeFile = (name) => {
@@ -76,7 +76,7 @@ const uploaderFilesPage = () => {
       className="flex flex-col items-center justify-start mx-auto w-full h-[calc(100vh-128px)] bg-blue-200 p-6 cursor-pointer overflow-x-hidden overflow-y-auto "
       onSubmit={handleSubmit}
     >
-      <div className="w-full max-w-md sm:w-4/5 md-2/5">
+      <div className="w-full max-w-lg sm:w-4/5 md-2/5">
         <div
           {...getRootProps({
             className:
